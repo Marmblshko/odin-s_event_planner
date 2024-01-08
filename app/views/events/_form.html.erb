@@ -1,0 +1,42 @@
+<div class="mt-8">
+  <%= form_with model: @event do |event| %>
+    <% if @event.errors.any? %>
+      <div id="error_explanation" data-turbo-cache="false" class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 mb-4 rounded">
+        <ul>
+          <% @event.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= event.label :title, "Event title:", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= event.text_field :title, placeholder: "How event is called?", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <div class="mb-4">
+      <%= event.label :date, "Date:", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= event.date_field :date, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <div class="mb-4">
+      <%= event.label :location, "Location:", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= event.text_field :location, placeholder: "Where will the event be?", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <div class="mb-4">
+      <%= event.label :description, "Description:", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= event.text_area :description, placeholder: "What is this for?", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <div class="mb-4">
+      <%= event.label :private, "Invite Only?", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= event.check_box :private, class: "mr-2 leading-tight" %>
+    </div>
+
+    <div>
+      <%= event.submit "Submit", class: "bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,40 @@
+<div class="mt-8">
+  <div class="mb-6">
+    <h3 class="text-2xl font-semibold"><%= @event.title %></h3>
+    <%= render "event_details", event: @event %>
+    <br>
+
+    <div>
+      <h3 class="text-xl font-semibold">Members for this Event:</h3>
+      <ul class="list-disc pl-5">
+        <% @event.attendees.each do |a| %>
+          <li class="mb-2"><%= link_to a.username, a %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <% if @event.creator == current_user %>
+    <div class="mb-6">
+      <div><%= link_to "Edit Event", edit_event_path(@event), class: "text-blue-500 underline" %></div>
+      <div><%= link_to "Delete Event", event_path(@event), data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: "text-red-500 underline" %></div>
+    </div>
+  <% end %>
+
+  <% if !@event.private || @event.invitees.include?(current_user) %>
+    <div class="mb-6">
+      <% if user_signed_in? %>
+        <div><%= link_to "Attend Event", new_attendance_path(event_id: @event.id), class: "bg-green-500 text-white py-2 px-4 rounded" %></div>
+        <br>
+        <div><%= link_to "Don't Attend Event", attendance_path(@event), data: { turbo_method: :delete }, class: "bg-red-500 text-white py-2 px-4 rounded" %> </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @event.private && @event.creator == current_user %>
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold">Invite members:</h3>
+      <%= render 'invites/form', event: @event %>
+    </div>
+  <% end %>
+</div>

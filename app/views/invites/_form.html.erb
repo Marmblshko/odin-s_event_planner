@@ -1,0 +1,12 @@
+<%= form_with url: invites_path, class: "mt-8" do |i| %>
+  <div class="mb-4">
+    <%= i.label :user_id, "Select User:", class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= i.collection_select :user_id, User.order(:username), :id, :username, { prompt: "Choose a user" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+  </div>
+
+  <%= i.hidden_field :event_id, value: event.id %>
+
+  <div>
+    <%= i.submit "Invite Member", class: "bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
+<% end %>

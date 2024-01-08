@@ -1,0 +1,31 @@
+<div class="mt-8">
+  <div class="mb-6">
+    <h2 class="text-2xl font-semibold">Events hosted by <%= @user.username %></h2>
+    <ul class="list-disc pl-5">
+      <% @user.events.each_with_index do |event, index| %>
+        <li class="mb-2"><%= "#{index + 1}. #{event.title}" %><%= render "events/event_details", event: event %><br>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="flex">
+    <div class="mr-8">
+      <h3 class="text-xl font-semibold">Upcoming Events <%= @user.username %> is participating in</h3>
+      <ul class="list-disc pl-5">
+        <% @user.attended_events.future.each do |user_event| %>
+          <li class="mb-2"><%= link_to "#{user_event.title} on #{user_event.formatted_date}", user_event %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-xl font-semibold">Past Events <%= @user.username %> participated</h3>
+      <ul class="list-disc pl-5">
+        <% @user.attended_events.past.each do |user_event| %>
+          <li class="mb-2"><%= link_to "#{user_event.title} on #{user_event.formatted_date}", user_event %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

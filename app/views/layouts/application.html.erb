@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Events</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body class="font-sans bg-gray-100">
+<div class="container mx-auto">
+  <div class="header bg-blue-500 text-white p-4">
+    <div><%= link_to "All Events", root_path %></div>
+    <ul class="flex space-x-4">
+      <% if user_signed_in? %>
+        <li>
+          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "text-white" %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "Sign up", new_user_registration_path, class: "text-white" %>
+        </li>
+        <li>
+          <%= button_to "Sign in", user_session_path, class: "text-white" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div>
+    <% flash.each do |name, message| %>
+      <div class="<%= name %> bg-yellow-200 p-2 mt-2 rounded">
+        <%= message %>
+      </div>
+    <% end %>
+  </div>
+
+  <main class="mt-8 px-5">
+    <%= yield %>
+  </main>
+</div>
+</body>
+</html>

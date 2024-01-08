@@ -1,0 +1,10 @@
+<% events.each do |event| %>
+  <div class="mb-4">
+    <%= link_to event.title, event, class: "text-blue-500 font-semibold text-lg" %>
+    <ul class="list-disc pl-5">
+      <li>By: <%= link_to event.creator.username, event.creator, class: "text-gray-700" %></li>
+      <li><%= event.formatted_date %></li>
+      <li class="mb-2">Details:<br><%= link_to event.description, event, class: "text-gray-700 underline" %></li>
+    </ul>
+  </div>
+<% end %>
